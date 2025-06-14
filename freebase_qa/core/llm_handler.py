@@ -76,28 +76,28 @@ class LLMHandler:
         return content
 
     def run_llm(self, prompt, temperature=0.1, max_tokens=1024, openai_api_keys="EMPTY", engine="Qwen/Qwen3-8B"):
-        # 1. vllm调用LLM
-        # openai_api_base = "http://localhost:8000/v1"
+        # 1. vllm部署LLM
+        openai_api_base = "http://localhost:8000/v1"
 
-        # client = OpenAI(
-        #     api_key=openai_api_keys,
-        #     base_url=openai_api_base,
-        # )
-
-        # 2. API调用LLM
         client = OpenAI(
-            api_key=os.getenv("DASHSCOPE_API_KEY"),
-            base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+            api_key=openai_api_keys,
+            base_url=openai_api_base,
         )
+
+        # 2. API部署LLM
+        # client = OpenAI(
+        #     api_key=os.getenv("DASHSCOPE_API_KEY"),
+        #     base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+        # )
 
         messages = [{"role": "user", "content": prompt}]
 
         completion = client.chat.completions.create(
-            model="deepseek-chat",  # 按需更换为其它深度思考模型
+            model=engine,  # 按需更换为其它深度思考模型
             messages=messages,
-            # temperature=temperature,
-            # max_tokens=max_tokens,
-            # extra_body={"chat_template_kwargs": {"enable_thinking": False}},      # vllm设置是否开启深度思考
+            temperature=temperature,
+            max_tokens=max_tokens,
+            extra_body={"chat_template_kwargs": {"enable_thinking": False}},      # vllm设置是否开启深度思考
             # extra_body={"enable_thinking": False},                                   # API设置是否开启深度思考
             stream=False,
         )

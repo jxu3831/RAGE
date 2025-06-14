@@ -169,7 +169,7 @@ def save_result2json(dataset_name, num_right, num_error, total_nums, model):
         'Right Samples': num_right,
         'Error Sampels': num_error
     }
-    with open('../data/acc/rage_{}_acc.json'.format(dataset_name), 'a', encoding='utf-8') as f:
+    with open('../results/rage_{}_acc.json'.format(dataset_name), 'a', encoding='utf-8') as f:
         json.dump(results_data, f, ensure_ascii=False, indent=4)
                      
 def extract_content(s):

@@ -23,7 +23,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Freebase知识图谱问答系统")
     
     # 数据集参数
-    parser.add_argument("--dataset", type=str, default="webqsp_sampled",
+    parser.add_argument("--dataset", type=str, default="webqsp",
                        help="选择数据集")
     
     # 模型参数
@@ -74,7 +74,7 @@ def parse_args():
 def main():
     setup_logging()
     args = parse_args()
-    llm = MODEL[args.LLM]
+    llm = args.LLM
     Sbert = MODEL[args.Sbert]
     
     # 初始化组件

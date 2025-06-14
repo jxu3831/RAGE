@@ -8,9 +8,9 @@ DATASET_PATHS = {
     'noisy_webqsp': Path('../data/noisy_WebQSP_sampled_600.json')
     # 其他数据集...
 }
-OUTPUT_PATH = '../results/{method}_{dataset}_{suffix}.jsonl'
+OUTPUT_PATH = '../outputs/{method}_{dataset}_{suffix}.jsonl'
 
-JSON_PATH = '../results/{method}_{dataset}_{suffix}.json'
+JSON_PATH = '../outputs/{method}_{dataset}_{suffix}.json'
 
 # SPARQL 配置
 SPARQL_ENDPOINT = "http://172.18.34.27:8890/sparql"
