@@ -86,8 +86,8 @@ class LLMHandler:
 
         # 2. API调用LLM
         client = OpenAI(
-            api_key="sk-33ab05e5c9ab4261a988a2e402495327",
-            base_url="https://api.deepseek.com",
+            api_key=os.getenv("DASHSCOPE_API_KEY"),
+            base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
         )
 
         messages = [{"role": "user", "content": prompt}]

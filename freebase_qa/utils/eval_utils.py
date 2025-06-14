@@ -8,15 +8,15 @@ def prepare_dataset_for_eval(dataset_name, output_file):
             datas = json.load(f)
         question_string = 'question'
     elif dataset_name == 'webqsp':
-        with open('../data/WebQSP/WebQSP.json',encoding='utf-8') as f:
+        with open('../data/WebQSP.json',encoding='utf-8') as f:
             datas = json.load(f)
         question_string = 'RawQuestion'
     elif dataset_name == 'noisy_webqsp':
-        with open('../data/WebQSP/noisy_WebQSP_sampled_600.json',encoding='utf-8') as f:
+        with open('../data/noisy_WebQSP_sampled_600.json',encoding='utf-8') as f:
             datas = json.load(f)
         question_string = 'NoisyQuestion'
     elif dataset_name == 'webqsp_sampled':
-        with open('../data/WebQSP/WebQSP_sampled_600.json',encoding='utf-8') as f:
+        with open('../data/WebQSP_sampled_600.json',encoding='utf-8') as f:
             datas = json.load(f)
         question_string = 'RawQuestion'
     elif dataset_name == 'grailqa':

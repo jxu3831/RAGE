@@ -37,15 +37,3 @@ class FileUtils:
                 json_lines = infile.readlines()
                 json_list = [json.loads(line) for line in json_lines]
                 json.dump(json_list, outfile, indent=4)
-
-    @staticmethod
-    def get_jsonl_filename(dataset: str, model_name: str) -> str:
-        """生成输出文件名"""
-        model_stem = model_name.split("/")[-1]
-        return f"../data/result/RAGE_{dataset}_{model_stem}_SEP.jsonl"
-    
-    @staticmethod
-    def get_json_filename(dataset: str, model_name: str) -> str:
-        """生成输出文件名"""
-        model_stem = model_name.split("/")[-1]
-        return f"../data/result/RAGE_{dataset}_{model_stem}_SEP.json"

@@ -2,15 +2,15 @@ from pathlib import Path
 
 # 数据集路径
 DATASET_PATHS = {
-    'cwq': Path('../data/WebQSP/cwq.json'),
-    'webqsp': Path('../data/WebQSP/WebQSP.json'),
-    'webqsp_sampled': Path('../data/WebQSP/WebQSP_sampled_600.json'),
-    'noisy_webqsp': Path('../data/WebQSP/noisy_WebQSP_sampled_600.json')
+    'cwq': Path('../data/cwq.json'),
+    'webqsp': Path('../data/WebQSP.json'),
+    'webqsp_sampled': Path('../data/WebQSP_sampled_600.json'),
+    'noisy_webqsp': Path('../data/noisy_WebQSP_sampled_600.json')
     # 其他数据集...
 }
-OUTPUT_PATH = '../data/result/{method}_{dataset}_{suffix}.jsonl'
+OUTPUT_PATH = '../results/{method}_{dataset}_{suffix}.jsonl'
 
-JSON_PATH = '../data/result/{method}_{dataset}_{suffix}.json'
+JSON_PATH = '../results/{method}_{dataset}_{suffix}.json'
 
 # SPARQL 配置
 SPARQL_ENDPOINT = "http://172.18.34.27:8890/sparql"
@@ -27,28 +27,10 @@ UNKNOWN_ENTITY = "UnName_Entity"
 FINISH_ID = "[FINISH_ID]"
 FINISH_ENTITY = "[FINISH]"
 
-# 新增语义搜索配置
-# SEMANTIC_SEARCH_CONFIG = {
-#     'entity_embeddings_path': '/media/xujiasheng/rag_projects/RAGE/SBERT/index/pure_sbert_embeddings.npy', 
-#     'mids_path': '/media/xujiasheng/rag_projects/RAGE/SBERT/index/pure_sbert_entity_mids.json',
-#     'names_path': '/media/xujiasheng/rag_projects/RAGE/SBERT/index/pure_sbert_entity_names.json'
-# }
-# EMBEDDING = {
-#     'embeddings_path': '/media/xujiasheng/rag_projects/RAGE/SBERT/index/entity_minilm-L12_fil_embeddings.npy',
-#     'names_path': '/media/xujiasheng/rag_projects/RAGE/SBERT/index/entity_minilm-L12_fil_names.json'
-# }
-# EMBEDDING = {
-#     'pt_path': '/media/xujiasheng/rag_projects/RAGE/SBERT/index/entity_minilm-L6.pt'
-# }
 EMBEDDING = {
-    'embeddings_path': '/media/xujiasheng/rag_projects/RAGE/SBERT/index/entity_minilm-L6_dedup_embeddings.npy',
-    'names_path': '/media/xujiasheng/rag_projects/RAGE/SBERT/index/entity_minilm-L6_dedup_names.json'
+    'embeddings_path': '../Freebase/index/L6_dedup_embeddings.npy',
+    'names_path': '../Freebase/index/L6_dedup_names.json'
 }
-# EMBEDDING = {
-#     'embeddings_path': '/media/xujiasheng/rag_projects/RAGE/SBERT/index/entity_minilm-L6_dup_embeddings.npy',
-#     'names_path': '/media/xujiasheng/rag_projects/RAGE/SBERT/index/entity_minilm-L6_dup_names.json'
-# }
-
 
 # 提示词配置
 GENERATE_TOPIC_ENTITY = """Given a multi-step reasoning question, identify and output the unique Anchor entity present in the question to initiate the reasoning process. Refrain from including any reasoning steps or the final answer.
