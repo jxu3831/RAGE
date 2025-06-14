@@ -11,7 +11,7 @@
 3. 运行`build_index.py`构建索引。
 
 ## Run
-1. 运行源代码前先修改`llm_handler.py`中[`run_llm`](https://github.com/jxu3831/RAGE/blob/main/freebase_qa/core/llm_handler.py)大模型部署方式。
+1. 运行前先修改`llm_handler.py`中[`run_llm`](https://github.com/jxu3831/RAGE/blob/main/freebase_qa/core/llm_handler.py)大模型部署方式。
 2. 按以下步骤运行
 ```
 cd ../freebase_qa/
