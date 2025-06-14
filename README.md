@@ -15,5 +15,6 @@
 2. 按以下步骤运行
 ```
 cd ../freebase_qa/
-python main.py
+python main.py --LLM qwen 
 ```
+`--LLM`参数表示选择的大模型，仅体现在最后的结果中，不改变`run_llm`方法部署的大模型，更换大模型时需同时修改。
