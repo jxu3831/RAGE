@@ -161,17 +161,22 @@ def exact_match(response, answers):
             return True
     return False
 
-def save_result2json(dataset_name, num_right, num_error, total_nums, model):
+def save_result2json(dataset_name, num_right, num_error, total_nums, model, method):
     results_data = {
         'dataset': dataset_name,
         'model': model,
+        'method': method,
         'Exact Match': float(num_right/total_nums),
         'Right Samples': num_right,
         'Error Sampels': num_error
     }
-    with open('../results/rage_{}_acc.json'.format(dataset_name), 'a', encoding='utf-8') as f:
+    with open('../results/{}_{}_{}_acc.json'.format(method, dataset_name, model), 'a', encoding='utf-8') as f:
         json.dump(results_data, f, ensure_ascii=False, indent=4)
-                     
+
+def check_wrong_result(method, dataset, model, data):
+    with open('../wrong_sample/{}_{}_{}_error.json'.format(method, dataset, model), 'a', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
+
 def extract_content(s):
     matches = re.findall(r'\{(.*?)\}', s)
     if len(matches) >= 2 and matches[0].lower() == 'yes':

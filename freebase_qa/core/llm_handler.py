@@ -3,7 +3,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from typing import Tuple, List
 from utils.logging_utils import logger
 from sentence_transformers import SentenceTransformer, util
-from openai import OpenAI
+from openai import OpenAI, AzureOpenAI
 import os
 
 class LLMHandler:
@@ -75,32 +75,55 @@ class LLMHandler:
 
         return content
 
-    def run_llm(self, prompt, temperature=0.1, max_tokens=1024, openai_api_keys="EMPTY", engine="Qwen/Qwen3-8B"):
-        # 1. vllm部署LLM
-        openai_api_base = "http://localhost:8000/v1"
-
-        client = OpenAI(
-            api_key=openai_api_keys,
-            base_url=openai_api_base,
-        )
-
-        # 2. API部署LLM
-        # client = OpenAI(
-        #     api_key=os.getenv("DASHSCOPE_API_KEY"),
-        #     base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
-        # )
-
+    def run_llm(self, prompt, temperature=0.1, max_tokens=1024, openai_api_keys="EMPTY", engine="azure_openai"):
         messages = [{"role": "user", "content": prompt}]
 
-        completion = client.chat.completions.create(
-            model=engine,  # 按需更换为其它深度思考模型
-            messages=messages,
-            temperature=temperature,
-            max_tokens=max_tokens,
-            extra_body={"chat_template_kwargs": {"enable_thinking": False}},      # vllm设置是否开启深度思考
-            # extra_body={"enable_thinking": False},                                   # API设置是否开启深度思考
-            stream=False,
-        )
+        if engine == "vllm":
+            # 1. vllm部署LLM
+            client = OpenAI(
+                api_key=openai_api_keys,
+                base_url="http://localhost:8000/v1",
+            )
+            completion = client.chat.completions.create(
+                model="Qwen/Qwen3-8B",  # 按需更换为其它深度思考模型
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                extra_body={"chat_template_kwargs": {"enable_thinking": False}},      # vllm设置是否开启深度思考
+                stream=False,
+            )
+
+        elif engine == "api":
+            # 2. API部署LLM
+            client = OpenAI(
+                api_key=os.getenv("DASHSCOPE_API_KEY"),
+                base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+            )
+
+            completion = client.chat.completions.create(
+                model="qwen-plus-latest",  # 按需更换为其它深度思考模型
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                extra_body={"enable_thinking": False},                                   # API设置是否开启深度思考
+                stream=False,
+            )
+
+        elif engine == "azure_openai":
+            # 3. Azure openai 部署 GPT4
+            client = AzureOpenAI(
+                api_key=os.getenv("AZURE_OPENAI_API_KEY"),
+                api_version="2024-02-15-preview",  # API 版本
+                azure_endpoint="https://73476-m9mi3n1l-eastus2.cognitiveservices.azure.com/",
+            )
+
+            completion = client.chat.completions.create(
+                model="gpt-4.1",  # 用 Azure 模型部署名替换
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                stream=False
+            )
 
         return completion.choices[0].message.content
 

@@ -55,10 +55,10 @@ class ReasoningEngine:
         pre_relations = []
         pre_heads = [-1] * len(topic_entity)
         flag_printed = False
-        if not topic_entity:
-            results = self.generate_without_explored_paths(question, args)
-            self.save_results(question, results, [], output_file)
-            flag_printed = True
+        # if not topic_entity:
+        #     results = self.generate_without_explored_paths(question, args)
+        #     self.save_results(question, results, [], output_file)
+        #     flag_printed = True
 
         for depth in range(1, args.depth + 1):
             # 1. 搜索和剪枝关系

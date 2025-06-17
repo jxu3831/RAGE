@@ -56,7 +56,7 @@ def parse_args():
                        help="每个mid的Top-K关系相似度来求平均")
 
     # 剪枝选项
-    parser.add_argument("--prune_tools", type=str, default="llm",
+    parser.add_argument("--prune_tools", type=str, default="sentencebert",
                        choices=["llm", "sentencebert"],
                        help="剪枝工具")
     parser.add_argument("--no-remove_unnecessary_rel", action="store_false",
@@ -64,7 +64,7 @@ def parse_args():
                        help="不移除不必要的关系")
     
     # 对比方法
-    parser.add_argument("--method", type=str, default="rage",
+    parser.add_argument("--method", type=str, default="cot",
                         choices=['io', 'cot', 'base', 'rage'], help="实验对比方法")
     
     # 智能体参数
@@ -144,7 +144,7 @@ def main():
         
         logger.info("In the assessment results...")
         FileUtils.jsonl2json(jsonl_file, json_file)
-        eval_em(args.dataset, json_file, args.LLM)
+        eval_em(args.dataset, json_file, args.LLM, args.method)
 
     except Exception as e:
         logger.error(f"Error in main execution: {e}", exc_info=True)
